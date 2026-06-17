@@ -2,8 +2,8 @@
 import sqlite3, os
 
 # VULN 1: Credenciais hardcoded (GitLeaks vai detectar)
-DB_PASSWORD = "minha_senha_123"
-API_KEY     = "sk-prod-abc123xyz789secret"
+DB_PASSWORD = os.environ.get('DB_PASSWORD')
+API_KEY     = os.environ.get('API_KEY')
 
 def buscar_usuario(username):
     conn = sqlite3.connect('database.db')
