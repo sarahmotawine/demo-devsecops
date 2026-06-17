@@ -13,6 +13,7 @@ def buscar_usuario(username):
 
 def exibir_nome(nome):
     # VULN 3: XSS — saida sem sanitizacao (Semgrep vai detectar)
+    
     return f"<p>Ola, {nome}!</p>"
 
 def login(usuario, senha):
