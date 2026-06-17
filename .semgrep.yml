@@ -1,9 +1,10 @@
 rules:
   - id: sql-injection-fstring
-    pattern: |
-      $DB.execute($QUERY, ...)
-    pattern-not: |
-      $DB.execute($QUERY, ($X,), ...)
+    patterns:
+      - pattern: $DB.execute($QUERY, ...)
+      - pattern-not: $DB.execute("...", ...)
+      - pattern-not: $DB.execute("...", ($X,))
+      - pattern-not: $DB.execute("...", ($X, $Y))
     message: "SQL Injection: query pode estar vulneravel"
     languages: [python]
     severity: ERROR
@@ -13,6 +14,10 @@ rules:
       - pattern: |
           def $FUNC($NAME):
               return f"<p>Ola, {$NAME}!</p>"
+      - pattern-not: |
+          def $FUNC($NAME):
+              $SAFE = html.escape($NAME)
+              return f"<p>Ola, {$SAFE}!</p>"
     message: "XSS: variavel inserida em HTML sem escape"
     languages: [python]
     severity: ERROR
