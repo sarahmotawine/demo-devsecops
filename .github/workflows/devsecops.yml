@@ -30,7 +30,7 @@ jobs:
       - name: Run Semgrep
         run: |
           pip install semgrep
-          semgrep --config=p/security-audit --config=p/owasp-top-ten --config=p/python --error .
+          semgrep --config=.semgrep.yml --error .
 
   # JOB 3 - Analise de dependencias SCA (Trivy)
   dependency-scan:

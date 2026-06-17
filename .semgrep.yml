@@ -1,0 +1,16 @@
+rules:
+  - id: sql-injection-fstring
+    patterns:
+      - pattern: |
+          $DB.execute(f"...{$INPUT}...")
+    message: "SQL Injection: input do usuario concatenado diretamente na query"
+    languages: [python]
+    severity: ERROR
+
+  - id: xss-sem-escape
+    patterns:
+      - pattern: |
+          f"<p>...{$INPUT}...</p>"
+    message: "XSS: variavel inserida em HTML sem escape"
+    languages: [python]
+    severity: ERROR
